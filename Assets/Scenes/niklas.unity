@@ -285,9 +285,10 @@ MonoBehaviour:
     JumpForce: 20
     UseJumpRotation: 1
     JumpRotation: 45
-    JumpRotationMuliplyer: 0
-    UseDoubleJump: 0
-    doubleJumps: 0
+    JumpRotationMuliplyer: 2
+    snaprotation: 0
+    UseDoubleJump: 1
+    doubleJumps: 1
     AirJumpsLeft: 0
     Jumps: 0
     groundTag: Ground

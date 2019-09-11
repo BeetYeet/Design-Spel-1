@@ -97,6 +97,10 @@ public class PlayerMovement : MonoBehaviour
 		{
 			case GroundState.onGround:
 				platformVaribles.Jumps = platformVaribles.doubleJumps;
+                if(platformVaribles.snaprotation == true)
+                {
+                    
+                }
 				if (Input.GetButtonDown("Jump"))
 				{
 					rbody.velocity = jumpForce;
@@ -253,6 +257,7 @@ public class PlatformVars
 	public bool UseJumpRotation;
 	public float JumpRotation;
 	public float JumpRotationMuliplyer;
+    public bool snaprotation;
 
 	[Header("double jump")]
 	[Space]
