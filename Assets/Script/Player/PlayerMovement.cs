@@ -139,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (collision.tag == platformVaribles.groundTag)
 		{
-
 			platformVaribles.groundState = GroundState.onGround;
 		}
 	}
