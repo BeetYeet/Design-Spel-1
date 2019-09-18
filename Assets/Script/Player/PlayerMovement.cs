@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMovement : MonoBehaviour
 {
 	#region vars
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	public TopDownVars TopdownVaribles;
 
 	Rigidbody2D rbody;
+    AudioSource AudioData;
 
 	public static PlayerMovement i
 	{
@@ -96,11 +98,7 @@ public class PlayerMovement : MonoBehaviour
 		switch (platformVaribles.groundState)
 		{
 			case GroundState.onGround:
-				platformVaribles.Jumps = platformVaribles.doubleJumps;
-                if(platformVaribles.snaprotation == true)
-                {
-                    
-                }
+                platformVaribles.Jumps = platformVaribles.doubleJumps;
 				if (Input.GetButtonDown("Jump"))
 				{
 					rbody.velocity = jumpForce;
@@ -113,7 +111,14 @@ public class PlayerMovement : MonoBehaviour
 							rbody.AddTorque(platformVaribles.JumpRotation);
 							break;
 					}
+                    AudioData.PlayOneShot(platformVaribles.JumpSound);
 				}
+                if(platformVaribles.snaprotation == true)
+                {
+                    Quaternion Target = Quaternion.Euler(0, 0, 0);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Target, Time.deltaTime * platformVaribles.SmoothRotation);
+                }
 				break;
 
 			case GroundState.InAir:
@@ -129,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
 							rbody.AddTorque(platformVaribles.JumpRotation * platformVaribles.JumpRotationMuliplyer);
 							break;
 					}
-
-					platformVaribles.Jumps--;
+                    AudioData.PlayOneShot(platformVaribles.JumpSound);
+                    platformVaribles.Jumps--;
 				}
 				break;
 		}
@@ -258,12 +263,18 @@ public class PlatformVars
 	public float JumpRotation;
 	public float JumpRotationMuliplyer;
     public bool snaprotation;
+    public float SmoothRotation;
 
-	[Header("double jump")]
+    [Header("double jump")]
 	[Space]
 	public bool UseDoubleJump = true;
 	public int doubleJumps;
-	public int AirJumpsLeft;
+    public int AirJumpsLeft;
+
+    [Header("Sounds")]
+    [Space]
+    public AudioClip JumpSound;
+    public AudioClip walkingSound;
 
 	[HideInInspector]
 	public int Jumps;
