@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 	void OnValidate()
 	{
 		rbody = GetComponent<Rigidbody2D>();
+        AudioData = GetComponent<AudioSource>();
 		switch (movementType)
 		{
 			case MovementType.Platformer:
