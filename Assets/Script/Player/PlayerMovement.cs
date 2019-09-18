@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
 	Rigidbody2D rbody;
     AudioSource AudioData;
+    SpriteRenderer SR;
 
 	public static PlayerMovement i
 	{
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rbody = GetComponent<Rigidbody2D>();
         AudioData = GetComponent<AudioSource>();
+        SR = GetComponent<SpriteRenderer>();
 		switch (movementType)
 		{
 			case MovementType.Platformer:
@@ -89,10 +91,20 @@ public class PlayerMovement : MonoBehaviour
 	void Movement()
 	{
 		rbody.velocity = new Vector2(Input.GetAxis("Horizontal") * platformVaribles.Speed, rbody.velocity.y);
-		Jump();
-	}
+        switch (movingDirection)
+        {
+            case MovingDirection.Left:
+                SR.flipX = true;
+                break;
+            case MovingDirection.Right:
+                SR.flipX = false;
+                break;
+        }
+        Jump();
 
-	void Jump()
+    }
+
+    void Jump()
 	{
 		Vector2 jumpForce = new Vector2(rbody.velocity.x, platformVaribles.JumpForce);
 
@@ -118,8 +130,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Quaternion Target = Quaternion.Euler(0, 0, 0);
 
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Target, Time.deltaTime * platformVaribles.SmoothRotation);
+                    if (transform.rotation.z == 0)
+                        return;
+                    else
+                        transform.rotation = Quaternion.Slerp(transform.rotation, Target, Time.deltaTime * platformVaribles.SmoothRotation);
                 }
+                SR.sprite = platformVaribles.Walking;
 				break;
 
 			case GroundState.InAir:
@@ -138,11 +154,13 @@ public class PlayerMovement : MonoBehaviour
                     AudioData.PlayOneShot(platformVaribles.JumpSound);
                     platformVaribles.Jumps--;
 				}
+                SR.sprite = platformVaribles.Air;
 				break;
 		}
 
 		platformVaribles.AirJumpsLeft = platformVaribles.Jumps;
 	}
+
 
 	#region OnTrigger
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -180,26 +198,26 @@ public class PlayerMovement : MonoBehaviour
 
 	void Enums()
 	{
-		if ((rbody.velocity.x < 0 || -rbody.velocity.x < 0) && platformVaribles.groundState == GroundState.onGround)
+		if ((rbody.velocity.x < -0.1 || rbody.velocity.x > 0.1) && platformVaribles.groundState == GroundState.onGround)
 			movementState = MovementState.Moving;
 		else
 			movementState = MovementState.Idle;
 
-		if (rbody.velocity.x < 0)
+		if (rbody.velocity.x < -0.1)
 		{
 			movingDirection = MovingDirection.Left;
 		}
-		if (-rbody.velocity.x < 0)
+		if (rbody.velocity.x > 0.1)
 			movingDirection = MovingDirection.Right;
 		switch (movementType)
 		{
 			case MovementType.TopDown:
 
-				if (rbody.velocity.y < 0)
+				if (rbody.velocity.y < 0.1f)
 				{
 					movingDirection = MovingDirection.down;
 				}
-				if (-rbody.velocity.y < 0)
+				if (rbody.velocity.y > -0.1f)
 					movingDirection = MovingDirection.up;
 
 				break;
@@ -276,6 +294,11 @@ public class PlatformVars
     [Space]
     public AudioClip JumpSound;
     public AudioClip walkingSound;
+
+    [Header("Sprites")]
+    [Space]
+    public Sprite Walking;
+    public Sprite Air;
 
 	[HideInInspector]
 	public int Jumps;
