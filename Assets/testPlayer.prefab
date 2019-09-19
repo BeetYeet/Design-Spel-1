@@ -54,20 +54,22 @@ MonoBehaviour:
     groundState: 0
     Speed: 10
     UseCustomGravity: 0
+    FlipSpriteOnMovement: 1
     JumpForce: 20
     UseJumpRotation: 1
     JumpRotation: 1000
-    JumpRotationMuliplyer: 0
+    JumpRotationMuliplyer: 1.5
     snaprotation: 1
     SmoothRotation: 100
     UseDoubleJump: 1
-    doubleJumps: 100
+    doubleJumps: 2
     AirJumpsLeft: 0
     JumpSound: {fileID: 0}
     walkingSound: {fileID: 0}
-    Walking: {fileID: -439475651761022888, guid: e98ee158ca8111642a524761d4ac47fe,
+    WalkingSprite: {fileID: -439475651761022888, guid: e98ee158ca8111642a524761d4ac47fe,
       type: 3}
-    Air: {fileID: 1652893166503290185, guid: 3696efb0062e1714f9775e9d458e7697, type: 3}
+    JumpSprite: {fileID: 1652893166503290185, guid: 3696efb0062e1714f9775e9d458e7697,
+      type: 3}
     Jumps: 0
     groundTag: Ground
   TopdownVaribles:
