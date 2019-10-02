@@ -15,6 +15,9 @@ public class PlayerShooting : MonoBehaviour
 	public float randspeed = 3f;
 	public int spitballs = 10;
 
+
+	public float shootCooldown = 1f;
+	float cooldownNow = 0f;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -26,15 +29,24 @@ public class PlayerShooting : MonoBehaviour
 	{
 		GetComponent<Rigidbody2D>().velocity = new Vector2(Input.GetAxis("Horizontal") * 20, 0);
 		lastAimDir = GetFireDir();
-
-		if (Input.GetKeyDown(KeyCode.Mouse0))
+		if (cooldownNow > 0f)
 		{
-			for (int i = 0; i < spitballs; i++)
+			cooldownNow -= Time.deltaTime;
+		}
+		else
+		{
+			cooldownNow = 0f;
+
+			if (Input.GetKeyDown(KeyCode.Mouse0))
 			{
-				float angle = Random.Range(-randangle, randangle);
-				float sin = Mathf.Sin(angle);
-				float cos = Mathf.Cos(angle);
-				Shoot(new Vector2(lastAimDir.x * cos - lastAimDir.y * sin, lastAimDir.x * sin + lastAimDir.y * cos), Mathf.Pow(10, shootSpeed) + Random.Range(-randspeed, randspeed));
+				cooldownNow = shootCooldown;
+				for (int i = 0; i < spitballs; i++)
+				{
+					float angle = Random.Range(-randangle, randangle);
+					float sin = Mathf.Sin(angle);
+					float cos = Mathf.Cos(angle);
+					Shoot(new Vector2(lastAimDir.x * cos - lastAimDir.y * sin, lastAimDir.x * sin + lastAimDir.y * cos), Mathf.Pow(10, shootSpeed) + Random.Range(-randspeed, randspeed));
+				}
 			}
 		}
 	}
