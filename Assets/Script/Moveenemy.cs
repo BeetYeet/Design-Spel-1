@@ -4,26 +4,50 @@ using UnityEngine;
 
 public class Moveenemy : MonoBehaviour
 {
-    public bool dirRight = true;
-    public float speed = 2.0f;
-    public float leftblock;
-    public float rightblock;
+	public bool dirRight = true;
+	public float speed = 2.0f;
+	public float leftblock;
+	public float rightblock;
 
-    void Update()
-    {
-        if (dirRight)
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        else
-            transform.Translate(-Vector2.right * speed * Time.deltaTime);
+	public int health = 20;
 
-        if (transform.position.x >= rightblock)
-        {
-            dirRight = false;
-        }
+	public AudioClip steveOof;
+	public AudioClip damageSound;
+	AudioSource source;
 
-        if (transform.position.x <= leftblock)
-        {
-            dirRight = true;
-        }
-    }
+	private void Start()
+	{
+		source = GetComponent<AudioSource>();
+	}
+	void Update()
+	{
+		if (dirRight)
+			transform.Translate(Vector2.right * speed * Time.deltaTime);
+		else
+			transform.Translate(-Vector2.right * speed * Time.deltaTime);
+
+		if (transform.position.x >= rightblock)
+		{
+			dirRight = false;
+		}
+
+		if (transform.position.x <= leftblock)
+		{
+			dirRight = true;
+		}
+		if (Input.GetKeyDown(KeyCode.B))
+		{
+			Damage();
+		}
+	}
+
+	public void Damage()
+	{
+		health--;
+		if (health <= 0)
+			source.clip = damageSound;
+		else
+			source.clip = steveOof;
+		source.Play();
+	}
 }

@@ -39,12 +39,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7479112580530913079}
-  - component: {fileID: 7479112580530913076}
   - component: {fileID: 7479112580530913077}
   - component: {fileID: 7479112580530913082}
   - component: {fileID: 7479112580530913083}
   - component: {fileID: 7479112580530913080}
   - component: {fileID: 1437982075}
+  - component: {fileID: 232706473}
   m_Layer: 0
   m_Name: testPlayer
   m_TagString: Player
@@ -67,40 +67,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7479112580530913076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7479112580530913081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cec9cc48043d3cf4e9dfeb72d4020a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementType: 0
-  movementState: 0
-  movingDirection: 0
-  groundState: 0
-  Speed: 20
-  UseCustomGravity: 0
-  FlipSpriteOnMovement: 1
-  JumpForce: 20
-  UseJumpRotation: 1
-  JumpRotation: 1000
-  JumpRotationMuliplyer: 1.5
-  snaprotation: 1
-  SmoothRotation: 10000
-  UseDoubleJump: 1
-  doubleJumps: 1
-  AirJumpsLeft: 0
-  WalkingSprite: {fileID: -439475651761022888, guid: e98ee158ca8111642a524761d4ac47fe,
-    type: 3}
-  JumpSprite: {fileID: 1652893166503290185, guid: 3696efb0062e1714f9775e9d458e7697,
-    type: 3}
-  Jumps: 0
-  groundTag: Ground
 --- !u!212 &7479112580530913077
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -242,3 +208,31 @@ MonoBehaviour:
   randangle: 0.05
   randspeed: 2
   spitballs: 10
+--- !u!114 &232706473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7479112580530913081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b61a09fc7b25a428a4a2d7ed65f286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 20
+  JumpForce: 30
+  JumpRotation: 1000
+  JumpRotationMuliplyer: 2
+  UseDoubleJump: 1
+  doubleJumps: 1
+  coll: {fileID: 7479112580530913083}
+  trigger: {fileID: 7479112580530913080}
+  size: {x: 1.5, y: 1.5}
+  originalsize: {x: 1.84, y: 3.23}
+  WalkingSprite: {fileID: -439475651761022888, guid: e98ee158ca8111642a524761d4ac47fe,
+    type: 3}
+  JumpSprite: {fileID: 1652893166503290185, guid: 3696efb0062e1714f9775e9d458e7697,
+    type: 3}
+  movingDirection: 0
+  groundState: 0
