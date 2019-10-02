@@ -74,7 +74,7 @@ public class NewPlayerMOvement : MonoBehaviour
                 if (transform.rotation.z == 0)
                     return;
                 else
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Target, Time.deltaTime * 10000);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Target, Time.deltaTime * 50);
 
 
                 SR.sprite = WalkingSprite;
@@ -98,7 +98,7 @@ public class NewPlayerMOvement : MonoBehaviour
                 }
                 break;
         }
-       
+
 
         if (rbody.velocity.x == 0)
             return;
@@ -114,7 +114,7 @@ public class NewPlayerMOvement : MonoBehaviour
             SR.flipX = false;
         }
 
-      
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
