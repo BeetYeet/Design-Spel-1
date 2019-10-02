@@ -22,6 +22,11 @@ public class NewPlayerMOvement : MonoBehaviour
     AudioSource AudioData;
     SpriteRenderer SR;
 
+    public BoxCollider2D coll;
+    public BoxCollider2D trigger;
+
+    public Vector2 size;
+    public Vector2 originalsize;
 
     public Sprite WalkingSprite;
     public Sprite JumpSprite;
@@ -60,6 +65,8 @@ public class NewPlayerMOvement : MonoBehaviour
                     Jumps--;
                 }
                 SR.sprite = JumpSprite;
+                coll.size = size;
+                trigger.size = new Vector2(size.x + 0.1f, size.y + 0.1f);
                 break;
             case GroundState.onGround:
                 Quaternion Target = Quaternion.Euler(0, 0, 0);
@@ -71,6 +78,8 @@ public class NewPlayerMOvement : MonoBehaviour
 
 
                 SR.sprite = WalkingSprite;
+                coll.size = originalsize;
+                trigger.size = new Vector2(1.9f, 3.4f);
                 Jumps = doubleJumps;
                 if (Input.GetButtonDown("Jump"))
                 {
