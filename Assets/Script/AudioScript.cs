@@ -3,22 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioScript : MonoBehaviour
-{
-    public AudioClip JumpClip;
+{ 
 
-    public AudioSource JumpSource;
+    AudioSource audioSrc;
+    bool isMoving = false;
+    Rigidbody2D rb;
+    public PlayerMovement pm;
+
     // Start is called before the first frame update
     void Start()
     {
-        JumpSource.clip = JumpClip;
+        rb = GetComponent<Rigidbody2D>();
+        audioSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        isMoving = pm.movementState == MovementState.Moving;
+
+
+        if (isMoving == true)
         {
-            JumpSource.Play();
+            if (!audioSrc.isPlaying)
+            {
+                audioSrc.Play();
+            }
+
+            
         }
     }
+
 }

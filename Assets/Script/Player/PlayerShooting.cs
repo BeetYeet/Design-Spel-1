@@ -24,6 +24,7 @@ public class PlayerShooting : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		GetComponent<Rigidbody2D>().velocity = new Vector2(Input.GetAxis("Horizontal") * 20, 0);
 		lastAimDir = GetFireDir();
 
 		if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -33,9 +34,7 @@ public class PlayerShooting : MonoBehaviour
 				float angle = Random.Range(-randangle, randangle);
 				float sin = Mathf.Sin(angle);
 				float cos = Mathf.Cos(angle);
-				float x = lastAimDir.x * cos - lastAimDir.y * sin;
-				float y = lastAimDir.x * sin + lastAimDir.y * cos;
-				Shoot(new Vector2(x, y), Mathf.Pow(10, shootSpeed) + Random.Range(-randspeed, randspeed));
+				Shoot(new Vector2(lastAimDir.x * cos - lastAimDir.y * sin, lastAimDir.x * sin + lastAimDir.y * cos), Mathf.Pow(10, shootSpeed) + Random.Range(-randspeed, randspeed));
 			}
 		}
 	}

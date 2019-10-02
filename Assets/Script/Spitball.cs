@@ -6,15 +6,16 @@ public class Spitball : MonoBehaviour
 {
 	float velocity = 0f;
 
+
 	public void Initialize(float startvelocity)
 	{
 		velocity = startvelocity;
 	}
-	void FixedUpdate()
+	void Update()
 	{
 		Vector2 vel = transform.up * velocity;
-		transform.position = transform.position + (Vector3) vel * Time.fixedDeltaTime;
-		vel += Physics2D.gravity * Time.fixedDeltaTime;
+		transform.position = transform.position + (Vector3) vel * Time.deltaTime;
+		vel += Physics2D.gravity * Time.deltaTime;
 		transform.rotation = Quaternion.LookRotation(vel, Vector3.back) * Quaternion.Euler(90f, 0f, 0f);
 		velocity = vel.magnitude;
 	}
