@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Moveenemy : MonoBehaviour
 {
-    private bool dirRight = true;
+    public bool dirRight = true;
     public float speed = 2.0f;
+    public float leftblock;
+    public float rightblock;
 
     void Update()
     {
@@ -14,12 +16,12 @@ public class Moveenemy : MonoBehaviour
         else
             transform.Translate(-Vector2.right * speed * Time.deltaTime);
 
-        if (transform.position.x >= 4.0f)
+        if (transform.position.x >= rightblock)
         {
             dirRight = false;
         }
 
-        if (transform.position.x <= -4)
+        if (transform.position.x <= leftblock)
         {
             dirRight = true;
         }
