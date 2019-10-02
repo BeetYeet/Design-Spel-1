@@ -90,7 +90,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void Movement()
 	{
-		rbody.velocity = new Vector2(Input.GetAxis("Horizontal") * platformVaribles.Speed, rbody.velocity.y);
+
+		rbody.velocity = new Vector2(Input.GetAxis("Horizontal") * 20, 0);
+		//rbody.velocity = new Vector2(Input.GetAxis("Horizontal") * platformVaribles.Speed, rbody.velocity.y);
 		switch (movementState)
 		{
 			case MovementState.Moving:
